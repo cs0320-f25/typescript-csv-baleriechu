@@ -37,7 +37,7 @@ Acceptance Criteria:
     Include your notes from above: what were your initial ideas, what did the LLM suggest, and how did the results differ by prompt? What resonated with you, and what didn’t? (3-5 sentences.) 
 
 My initial ideas were to alter the spiltting so that commas, quotes, and multiple lines can be part of a field and be preserved in the output. I also thought that headers should be used to ensure
-data is consistent. The LLM suggested to add delimiters, support quoting/escaping, newlines, empty lines and trailing delimiters, etc. The results differed by prompt mainly in the owrding but the overall list given was the same. The more specific I made the prompt, the more specific the llm response was. The malformed rows resonated with me because I did not think about truly malformed data as in incorrect or inoncistent structure; I only thought about the case where there were empty fields but still valid structure (commas).
+data is consistent. The LLM suggested to add delimiters, support quoting/escaping, newlines, empty lines and trailing delimiters, etc. The results differed by prompt mainly in the owrding but the overall list given was the same. The more specific I made the prompt, the more specific the llm response was. The malformed rows resonated with me because I did not think about truly malformed data as in incorrect or inconsistent structure; I only thought about the case where there were empty fields but still valid structure (commas).
 ### Design Choices
 
 ### 1340 Supplement

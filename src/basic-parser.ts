@@ -1,5 +1,8 @@
 import * as fs from "fs";
 import * as readline from "readline";
+import * as z from "zod";
+
+type Result<T> = {data: T[]}
 
 /**
  * This is a JSDoc comment. Similar to JavaDoc, it documents a public-facing
@@ -14,7 +17,7 @@ import * as readline from "readline";
  * @param path The path to the file being loaded.
  * @returns a "promise" to produce a 2-d array of cell values
  */
-export async function parseCSV(path: string): Promise<string[][]> {
+export async function parseCSV<T>(path: string, schema: z.ZodType<T>): Promise<string[][] | T[]> {
   // This initial block of code reads from a file in Node.js. The "rl"
   // value can be iterated over in a "for" loop. 
   const fileStream = fs.createReadStream(path);
@@ -33,5 +36,10 @@ export async function parseCSV(path: string): Promise<string[][]> {
     const values = line.split(",").map((v) => v.trim());
     result.push(values)
   }
+  if (!schema) return result;
+  const data: T[] = [];
   return result
 }
+
+const studentRowSchena = z.tuple([z.string(), z.coerce.number(), z.email()])
+.transform(arr => ({name: arr[0], credits: arr[1], email: arr[2]}))
