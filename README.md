@@ -58,7 +58,7 @@ This sprint differed from prior programming assignments I have done because I di
 #### Errors/Bugs: 
 Yes, I encountered minor bugs mainly with syntax and how to alter the code to accpete schema using Zod. I was able to fix them by talking to my peers, looking through the typescript thinking like an engineer document that was provided, and searching online.
 #### Tests: 
-The tests I implmented focused on specific areas concerning general functionality and edge cases. I tested cases where there is no header, no data at all, or if there were commas or quotes within the csv file that should be preserved or indicated that the contents was one field. For the zod schema, I specifically tested that the parser correctly transformed the data to the types given in the schema. I also tested that if the schema was undefined, then the parser would fall back to its original behavior before incorporating the schema functionality. I tried different schemas with different types, numbers of fields, and ensured that an error message would be returned if there was malformed data.
+The tests I implemented focused on specific areas concerning general functionality and edge cases. I tested cases where there is no header, no data at all, or if there were commas or quotes within the csv file that should be preserved or indicated that the contents was one field. For the zod schema, I specifically tested that the parser correctly transformed the data to the types given in the schema. I also tested that if the schema was undefined, then the parser would fall back to its original behavior before incorporating the schema functionality. I tried different schemas with different types, numbers of fields, and ensured that an error message would be returned if there was malformed data.
 #### How To…
 To run the tests, just do npm run test.
 To build the program, npm build then use npm run on the build parser file.
@@ -67,6 +67,7 @@ To build the program, npm build then use npm run on the build parser file.
 
 #### Collaborators (cslogins of anyone you worked with on this project and/or generative AI): 
 bhenok
+I used generative AI specifically chatGPT for task B to to expand my perpsective on what a parser should have to compare with my own ideas and to get ideas for enhancements or edge cases.
 #### Total estimated time it took to complete project: 
 7 hours
 #### Link to GitHub Repo:  
