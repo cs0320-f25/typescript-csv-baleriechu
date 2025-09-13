@@ -2,8 +2,6 @@ import * as fs from "fs";
 import * as readline from "readline";
 import * as z from "zod";
 
-type Result<T> = {data: T[]}
-
 /**
  * This is a JSDoc comment. Similar to JavaDoc, it documents a public-facing
  * function for others to use. Most modern editors will show the comment when 
@@ -17,7 +15,7 @@ type Result<T> = {data: T[]}
  * @param path The path to the file being loaded.
  * @returns a "promise" to produce a 2-d array of cell values
  */
-export async function parseCSV<T>(path: string, schema: z.ZodType<T>): Promise<string[][] | T[]> {
+export async function parseCSV<T>(path: string, schema?: z.ZodType<T>): Promise<string[][] | T[] | string> {
   // This initial block of code reads from a file in Node.js. The "rl"
   // value can be iterated over in a "for" loop. 
   const fileStream = fs.createReadStream(path);
@@ -27,7 +25,7 @@ export async function parseCSV<T>(path: string, schema: z.ZodType<T>): Promise<s
   });
   
   // Create an empty array to hold the results
-  let result = []
+const result: string[][] = []
   
   // We add the "await" here because file I/O is asynchronous. 
   // We need to force TypeScript to _wait_ for a row before moving on. 
@@ -37,9 +35,12 @@ export async function parseCSV<T>(path: string, schema: z.ZodType<T>): Promise<s
     result.push(values)
   }
   if (!schema) return result;
-  const data: T[] = [];
-  return result
+  const invalidData = result.findIndex(row => !schema.safeParse(row).success);
+  if (invalidData !== -1) return "invalid data found";
+
+  return result.map(row => schema.parse(row));
+
 }
 
-const studentRowSchena = z.tuple([z.string(), z.coerce.number(), z.email()])
+const studentRowSchema = z.tuple([z.string(), z.coerce.number(), z.email()])
 .transform(arr => ({name: arr[0], credits: arr[1], email: arr[2]}))
