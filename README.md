@@ -67,5 +67,7 @@ To build the program, npm build then use npm run on the build parser file.
 
 #### Collaborators (cslogins of anyone you worked with on this project and/or generative AI): 
 bhenok
-#### Total estimated time it took to complete project: 7 hours
+#### Total estimated time it took to complete project: 
+7 hours
 #### Link to GitHub Repo:  
+https://github.com/cs0320-f25/typescript-csv-baleriechu.git
