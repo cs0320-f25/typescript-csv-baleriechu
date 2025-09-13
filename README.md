@@ -37,22 +37,35 @@ Acceptance Criteria:
     Include your notes from above: what were your initial ideas, what did the LLM suggest, and how did the results differ by prompt? What resonated with you, and what didn’t? (3-5 sentences.) 
 
 My initial ideas were to alter the spiltting so that commas, quotes, and multiple lines can be part of a field and be preserved in the output. I also thought that headers should be used to ensure
-data is consistent. The LLM suggested to add delimiters, support quoting/escaping, newlines, empty lines and trailing delimiters, etc. The results differed by prompt mainly in the owrding but the overall list given was the same. The more specific I made the prompt, the more specific the llm response was. The malformed rows resonated with me because I did not think about truly malformed data as in incorrect or inconsistent structure; I only thought about the case where there were empty fields but still valid structure (commas).
+data is consistent. The LLM suggested to add delimiters, support quoting/escaping, newlines, empty lines and trailing delimiters, etc. The results differed by prompt mainly in the owrding but the overall list given was the same. The more specific I made the prompt, the more specific the llm response was. The malformed rows resonated with me because I did not think about truly malformed data as in incorrect or inconsistent structure; I only thought about the case where there were empty fields but still valid structure (commas). 
 ### Design Choices
-
+I used Zod schema to help validate data rather than have the parser itself validate. I decided that if there was invalid data, a error message would be returned to the user. I did not have it return any rows that were deemed valid because this makes it easier to debug rather than try to ignore the field(s) that were malformed and prevents data corruption.
 ### 1340 Supplement
 
 - #### 1. Correctness
+A CSV parser is correct if it can take in data, parse it, and return an output. General properties tests should be checking about the CSV parser is that it can read CSV files, 
+spilt fields based on specified delimiters, and preserve quotes, newlines, whitespace, etc. either within or around a field. It should not be reposible for validating data 
+but given a schema that should be used to ensure errors are returned if the data does not
+adhere to the schema.
 
 - #### 2. Random, On-Demand Generation
+Given a function that randomly produces CSV data on demand, I might use this source of random data to expand the power of my testing by ensuring that my parser works properly on
+a myriad of data types and data that I might not have thought of.
+
 
 - #### 3. Overall experience, Bugs encountered and resolved
-#### Errors/Bugs:
-#### Tests:
+This sprint differed from prior programming assignments I have done because I did have never learned how to use a CSV parser before this and the code was given for me to modify. It was different because we were not told to "fix" the issues with the parser but to extend it to allow for data validation based on a schema given by the user. 
+#### Errors/Bugs: 
+Yes, I encountered minor bugs mainly with syntax and how to alter the code to accpete schema using Zod. I was able to fix them by talking to my peers, looking through the typescript thinking like an engineer document that was provided, and searching online.
+#### Tests: 
+The tests I implmented focused on specific areas concerning general functionality and edge cases. I tested cases where there is no header, no data at all, or if there were commas or quotes within the csv file that should be preserved or indicated that the contents was one field. For the zod schema, I specifically tested that the parser correctly transformed the data to the types given in the schema. I also tested that if the schema was undefined, then the parser would fall back to its original behavior before incorporating the schema functionality. I tried different schemas with different types, numbers of fields, and ensured that an error message would be returned if there was malformed data.
 #### How To…
+To run the tests, just do npm run test.
+To build the program, npm build then use npm run on the build parser file.
 
 #### Team members and contributions (include cs logins):
 
-#### Collaborators (cslogins of anyone you worked with on this project and/or generative AI):
+#### Collaborators (cslogins of anyone you worked with on this project and/or generative AI): 
+bhenok
 #### Total estimated time it took to complete project: 7 hours
 #### Link to GitHub Repo:  

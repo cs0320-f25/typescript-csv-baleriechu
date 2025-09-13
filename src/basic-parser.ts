@@ -37,10 +37,6 @@ const result: string[][] = []
   if (!schema) return result;
   const invalidData = result.findIndex(row => !schema.safeParse(row).success);
   if (invalidData !== -1) return "invalid data found";
-
   return result.map(row => schema.parse(row));
 
 }
-
-const studentRowSchema = z.tuple([z.string(), z.coerce.number(), z.email()])
-.transform(arr => ({name: arr[0], credits: arr[1], email: arr[2]}))
